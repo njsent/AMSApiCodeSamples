@@ -143,16 +143,16 @@ namespace AMS.Api.Code
                 var contentStream = await response.Content.ReadAsStreamAsync();
                 // set our json options to deserialize as case-insensitive since the incoming stream is camelCase and our properties are PascalCase
                 var jsonOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
-				/* optionally, if you want to deserialize enums into your own enum (which should match the $metadata enum), you can implement the following: 
-				    jsonOptions.Converters.Add(new JsonStringEnumConverter());
+		/* optionally, if you want to deserialize enums into your own enum (which should match the $metadata enum), you can implement the following: 
+		   jsonOptions.Converters.Add(new JsonStringEnumConverter());
 				   
-				 * and change your Organization model from:
-                    public string Status { get; set; }
-				 * to:
-     			    public OrgStatus Status { get; set; }
-				 * and add the enum:
-				    public enum OrgStatus {  Pending = 0, Active = 1, Expiring = 3, Inactive = 5, Dropped = 10, Deleted = 15 }
-				*/
+		 * and change your Organization model from:
+                   public string Status { get; set; }
+		 * to:
+     		   public OrgStatus Status { get; set; }
+		 * and add the enum:
+		   public enum OrgStatus {  Pending = 0, Active = 1, Expiring = 3, Inactive = 5, Dropped = 10, Deleted = 15 }
+		*/
                 return await JsonSerializer.DeserializeAsync<AMSResponse<T>>(contentStream, jsonOptions);
             }
         }
